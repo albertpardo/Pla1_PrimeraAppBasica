@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">PrimeraAppBasica</string>
+    <string name="titol_main">Consultori de frases</string>
+    <string name="but_consells">CONSELLS</string>
+    <string name="but_frases_fetes">FRASES FETES</string>
+    <string name="frase_per_defecte">Frase o Consell</string>
+</resources>
