@@ -10,8 +10,6 @@ import android.widget.Toast;
 
 import java.util.List;
 
-import com.cifoandroid2019.primeraappbasica.FraseDao;
-
 public class MainActivity extends AppCompatActivity {
 
     private Button mConsellsButton;
@@ -23,6 +21,9 @@ public class MainActivity extends AppCompatActivity {
     private List<Frase> mCitesCelebres;
     private List<Frase> mFrasesFetes;
 
+    private static final String FRASE_KEY = "frase";
+    private Frase mFrase;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,10 +33,14 @@ public class MainActivity extends AppCompatActivity {
         mFrasesButton = findViewById(R.id.but_frases_fetes);
         mTextFrases= findViewById(R.id.textFrases);
 
-
         fraseDao = new FraseDao();
         mCitesCelebres = fraseDao.getConsells();
         mFrasesFetes = fraseDao.getFrases();
+
+        if (savedInstanceState != null) {
+            mFrase = fraseDao.getFraseById(savedInstanceState.getInt(FRASE_KEY, 1));
+            setFraseText(mFrase.getText());
+        }
 
         mConsellsButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,7 +59,18 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    private void setFraseText(String frase) {
+        mTextFrases.setText(frase);
+    }
+
     private void visualizeStringFromListFrases( List<Frase> listFrases) {
-        mTextFrases.setText(listFrases.get((int)(Math.random() * listFrases.size())).getText());
+        mFrase = listFrases.get((int)(Math.random() * listFrases.size()));
+        setFraseText(mFrase.getText());
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle saveInstanceState) {
+        super.onSaveInstanceState(saveInstanceState);
+        saveInstanceState.putInt(FRASE_KEY, mFrase.getId());
     }
 }

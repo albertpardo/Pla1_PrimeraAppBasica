@@ -46,4 +46,13 @@ public class FraseDao {
         }
         return result;
     }
+
+    public Frase getFraseById(int id) {
+        for (Frase temp : mFrases) {
+            if (temp.getId() == id) {
+                return temp;
+            }
+        }
+        return mFrases.get(1);
+    }
 }
