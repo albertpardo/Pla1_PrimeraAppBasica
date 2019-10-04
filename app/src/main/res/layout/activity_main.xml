@@ -12,6 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="85dp"
         android:text="@string/titol_main"
+        android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.52"
         app:layout_constraintStart_toStartOf="parent"
@@ -23,6 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="100dp"
         android:text="@string/but_consells"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
@@ -35,6 +37,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:text="@string/but_frases_fetes"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="@+id/but_consells"
         app:layout_constraintStart_toStartOf="@+id/but_consells"
         app:layout_constraintTop_toBottomOf="@+id/but_consells" />
@@ -49,6 +52,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:text="@string/frase_per_defecte"
+        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/but_frases_fetes" />

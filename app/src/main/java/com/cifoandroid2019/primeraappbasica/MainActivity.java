@@ -1,6 +1,9 @@
 package com.cifoandroid2019.primeraappbasica;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelProviders;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -23,8 +26,9 @@ public class MainActivity extends AppCompatActivity {
     private List<Frase> mCitesCelebres;
     private List<Frase> mFrasesFetes;
 
+    MainViewModel mMainViewModel;
+
     private static final String FRASE_KEY = "frase";
-    private Frase mFrase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,10 +43,7 @@ public class MainActivity extends AppCompatActivity {
         mCitesCelebres = fraseDao.getConsells();
         mFrasesFetes = fraseDao.getFrases();
 
-        if (savedInstanceState != null) {
-            mFrase = fraseDao.getFraseById(savedInstanceState.getInt(FRASE_KEY, 1));
-            setFraseText(mFrase.getText());
-        }
+        mMainViewModel = ViewModelProviders.of(this).get(MainViewModel.class);
 
         mConsellsButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,10 +65,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, FraseDetailActivity.class);
-                intent.putExtra(Constants.EXTRA_INTENT_FRASE_DETAIL, mFrase.getId());
+                intent.putExtra(Constants.EXTRA_INTENT_FRASE_DETAIL, mMainViewModel.getFrase().getId());
                 startActivity(intent);
             }
         });
+
+        //Evita un error al arrancar l'app per que mMainViewModel.getFrase() es null
+        if (mMainViewModel.getFrase() != null) {
+            setFraseText(mMainViewModel.getFrase().getText());
+        }
     }
 
     private void setFraseText(String frase) {
@@ -75,13 +81,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void visualizeStringFromListFrases( List<Frase> listFrases) {
-        mFrase = listFrases.get((int)(Math.random() * listFrases.size()));
-        setFraseText(mFrase.getText());
-    }
-
-    @Override
-    public void onSaveInstanceState(Bundle saveInstanceState) {
-        super.onSaveInstanceState(saveInstanceState);
-        saveInstanceState.putInt(FRASE_KEY, mFrase.getId());
+        mMainViewModel.setFrase(listFrases.get((int)(Math.random() * listFrases.size())));
+        setFraseText(mMainViewModel.getFrase().getText());
     }
 }
