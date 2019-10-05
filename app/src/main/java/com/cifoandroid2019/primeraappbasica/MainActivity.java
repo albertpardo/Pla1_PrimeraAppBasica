@@ -1,13 +1,10 @@
 package com.cifoandroid2019.primeraappbasica;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -28,8 +25,6 @@ public class MainActivity extends AppCompatActivity {
 
     MainViewModel mMainViewModel;
 
-    private static final String FRASE_KEY = "frase";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,7 +44,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Toast.makeText(MainActivity.this, "Has premut el botó dels consells", Toast.LENGTH_SHORT).show();
-                visualizeStringFromListFrases(mCitesCelebres);
+                //visualizeStringFromListFrases(mCitesCelebres);
+                visualizeStringFromListFrases(Constants.CITES_CELEBRES);
             }
         });
 
@@ -57,7 +53,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Toast.makeText(MainActivity.this, "Has premut el botó de les frases fetes", Toast.LENGTH_SHORT).show();
-                visualizeStringFromListFrases(mFrasesFetes);
+                //visualizeStringFromListFrases(mFrasesFetes);
+                visualizeStringFromListFrases(Constants.FRASES_FETES);
             }
         });
 
@@ -80,8 +77,13 @@ public class MainActivity extends AppCompatActivity {
         mTextFrases.setText(frase);
     }
 
-    private void visualizeStringFromListFrases( List<Frase> listFrases) {
-        mMainViewModel.setFrase(listFrases.get((int)(Math.random() * listFrases.size())));
+//    private void visualizeStringFromListFrases( List<Frase> listFrases) {
+//        mMainViewModel.setFrase(listFrases.get((int)(Math.random() * listFrases.size())));
+//        setFraseText(mMainViewModel.getFrase().getText());
+//    }
+
+    private void visualizeStringFromListFrases( int typeFrase) {
+        mMainViewModel.selectFrase(typeFrase);
         setFraseText(mMainViewModel.getFrase().getText());
     }
 }
